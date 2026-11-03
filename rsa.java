@@ -26,3 +26,32 @@ public class rsa
 	}
 }
 
+
+// RSA using BigInteger
+import java.math.BigInteger;
+import java.util.*;
+
+class RSA {
+    public static void main(String[] args) {
+        BigInteger p = BigInteger.valueOf(3);
+        BigInteger q = BigInteger.valueOf(11);
+
+        BigInteger n = p.multiply(q);
+        BigInteger phi = p.subtract(BigInteger.ONE)
+                          .multiply(q.subtract(BigInteger.ONE));
+
+        BigInteger e = BigInteger.valueOf(3);
+        BigInteger d = e.modInverse(phi);
+
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter number: ");
+        BigInteger msg = sc.nextBigInteger();
+
+        BigInteger enc = msg.modPow(e, n);
+        BigInteger dec = enc.modPow(d, n);
+
+        System.out.println("Encrypted: " + enc);
+        System.out.println("Decrypted: " + dec);
+    }
+}
+
