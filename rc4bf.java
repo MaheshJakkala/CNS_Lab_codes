@@ -1,3 +1,7 @@
+//Experiment 7(ii): Blowfish using Java Keytool
+
+//keytool -genseckey -alias blowfishkey -keyalg Blowfish -keysize 128 -storetype JCEKS -keystore blowfish.jceks
+
 import java.util.*;
 import java.io.*;
 import javax.crypto.*;
