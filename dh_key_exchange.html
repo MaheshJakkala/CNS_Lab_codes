@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>Diffie-Hellman Key Exchange</h1>
+
+    p: <input id="p" value="23"><br><br>
+    g: <input id="g" value="5"><br><br>
+    Alice private key: <input id="a" value="3"><br><br>
+    Bob private key: <input id="b" value="11"><br><br>
+
+    <button onclick="calculate()">Generate Secret Key</button>
+
+    <p id="result"></p>
+
+    <script>
+        function modPow(base, exp, mod) {
+            let result = 1n;
+            base = BigInt(base);
+            exp = BigInt(exp);
+            mod = BigInt(mod);
+
+            for (let i = 0n; i < exp; i++) {
+                result = (result * base) % mod;
+            }
+            return result;
+        }
+
+        function calculate() {
+            let p = BigInt(document.getElementById("p").value);
+            let g = BigInt(document.getElementById("g").value);
+            let a = BigInt(document.getElementById("a").value);
+            let b = BigInt(document.getElementById("b").value);
+
+            let A = modPow(g, a, p);//public keys
+            let B = modPow(g, b, p);
+          
+            let k1 = modPow(B, a, p);//Alice
+            let k2 = modPow(A, b, p);
+
+            document.getElementById("result").innerHTML =
+                "Alice's Public Key: " + A + "<br>" +
+                "Bob's Public Key: " + B + "<br>" +
+                "Alice's Shared Key: " + k1 + "<br>" +
+                "Bob's Shared Key: " + k2 + "<br>" +
+                "Keys Match: " + (k1 === k2);
+        }
+    </script>
+</body>
+</html>
+
